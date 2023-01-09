@@ -10,6 +10,8 @@ function handleSumbit(e) {
   const newTodo = {
     id: new Date().getTime(),
     title: todoInput.value,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
   todos.push(newTodo);
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -32,12 +34,12 @@ function updateTodo(e) {
   updateForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const newTitle = e.target.title.value;
-    console.log(newTitle)
-    todos.map(todo => {
-      if (todo.id === id) {
-        todo["title"] = newTitle
-      }
-    })
+    console.log(newTitle);
+    todos.map((todo) =>
+      todo.id === id
+        ? { ...todo, title: newTitle, updatedAt: new Date() }
+        : todo
+    );
     localStorage.setItem("todos", JSON.stringify(todos));
     updateList();
   });
