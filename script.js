@@ -1,8 +1,10 @@
 const createForm = document.getElementById("create-form");
+const select = document.getElementById("sort-select");
 const todoList = document.getElementById("todo-list");
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
 createForm.addEventListener("submit", handleSumbit);
+select.addEventListener("change", handleChange);
 
 function handleSumbit(e) {
   e.preventDefault();
@@ -17,6 +19,14 @@ function handleSumbit(e) {
   localStorage.setItem("todos", JSON.stringify(todos));
   updateList();
   createForm.reset();
+}
+
+function handleChange() {
+  const order = this.value === "ascending" ? 1 : -1;
+  todos = todos.sort(
+    (a, b) => order * (new Date(a.createdAt) - new Date(b.createdAt))
+  );
+  updateList();
 }
 
 function updateTodo(e) {
