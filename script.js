@@ -8,10 +8,14 @@ select.addEventListener("change", handleChange);
 
 function handleSumbit(e) {
   e.preventDefault();
-  const todoInput = this.value;
+  const title = this.value.value;
+  if (!title) {
+    alert("할 일을 입력하세요.");
+    return;
+  }
   const newTodo = {
     id: new Date().getTime(),
-    title: todoInput.value,
+    title: title,
     createdAt: new Date(),
     updatedAt: new Date(),
   };
@@ -44,7 +48,10 @@ function updateTodo(e) {
   updateForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const newTitle = e.target.title.value;
-    console.log(newTitle);
+    if (!newTitle) {
+      alert("할 일을 입력하세요.");
+      return;
+    }
     todos = todos.map((todo) =>
       todo.id === id
         ? { ...todo, title: newTitle, updatedAt: new Date() }
