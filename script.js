@@ -34,10 +34,10 @@ function updateTodo(e) {
   const todo = this.parentNode;
   const id = parseInt(todo.id);
   const content = `
-    <form>
-      <input name="title" value="${todo.dataset.title}"/>
-      <button type="submit" class="complete-button">완료</button>
-      </form>
+    <form class="update-form">
+      <input class="update-input" name="title" value="${todo.dataset.title}"/>
+      <button type="submit" >완료</button>
+    </form>
   `;
   todo.innerHTML = content;
   const updateForm = todo.querySelector("form");
@@ -45,7 +45,7 @@ function updateTodo(e) {
     e.preventDefault();
     const newTitle = e.target.title.value;
     console.log(newTitle);
-    todos.map((todo) =>
+    todos = todos.map((todo) =>
       todo.id === id
         ? { ...todo, title: newTitle, updatedAt: new Date() }
         : todo
@@ -67,7 +67,7 @@ function updateList() {
   const content = todos
     .map((todo) => {
       return `
-      <li id="${todo.id}" class="todo-item" data-title="${todo.title}">
+      <li id="${todo.id}" data-title="${todo.title}">
         <p class="todo-title">${todo.title}</p>
         <button class="update-todo">수정</button>
         <button class="delete-todo">삭제</button>
